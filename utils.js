@@ -26,7 +26,7 @@ const deckOrigin = () => {
   return deckOrigin;
 };
 const shuffle = () => {
-  deck = deckOrigin();
+  const deck = deckOrigin();
   let currentIndex = deck.length;
   let randomIndex = 0;
   while (currentIndex != 0) {

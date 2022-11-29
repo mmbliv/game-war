@@ -8,37 +8,4 @@
 //  if someone wins, add current cards to winner's stack, print the imformation, and get one card from each stack again
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
-const A = 14;
-const J = 11;
-const Q = 12;
-const K = 13;
-const cards = [A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K];
-const suits = ["diamonds", "hearts", "spades", "clubs"];
-const deckOrigin = cards.reduce(
-  (res, card) => [
-    ...res,
-    ...suits.map((suit) => ({ Value: card, Suit: suit })),
-  ],
-  []
-);
-const shuffle = () => {
-  deck = [...deckOrigin];
-  player1 = player2 = [];
-  let currentIndex = deck.length;
-  let randomIndex = 0;
-  while (currentIndex != 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [deck[currentIndex], deck[randomIndex]] = [
-      deck[randomIndex],
-      deck[currentIndex],
-    ];
-  }
-  return deck;
-};
-const split = () => {
-  const deck = shuffle();
-  const half = Math.floor(deck.length / 2);
-  return [deck.slice(0, half), deck.slice(-half)];
-};
-console.log(split());
+import { split } from "./utils.js";
