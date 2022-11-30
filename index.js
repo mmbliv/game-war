@@ -9,3 +9,8 @@
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
 import { split } from "./utils.js";
+import { War } from "./class.js";
+const [playerOne, playerTwo] = split();
+const newGame = new War(playerOne, playerTwo);
+console.log(newGame.playerOne);
+console.log(newGame.getOneOrTwoCard("playerOne", 1));
