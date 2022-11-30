@@ -25,11 +25,11 @@ export class War {
     if (cardCount === 1) {
       if (player === "playerOne") {
         card = this.playerOne.shift();
-        this.playerOneCardValue = card;
+        this.playerOneCardValue = card.Value;
       }
       if (player === "playerTwo") {
         card = this.playerTwo.shift();
-        this.playerTwoCardValue = card;
+        this.playerTwoCardValue = card.Value;
       }
       this.currentCards.push(card);
     }
@@ -37,15 +37,37 @@ export class War {
       if (player === "playerOne") {
         card = this.playerOne.shift();
         cardTwo = this.playerOne.shift();
-        this.playerOneCardValue = card;
+        this.playerOneCardValue = card.Value;
       }
       if (player === "playerTwo") {
         card = this.playerTwo.shift();
         cardTwo = this.playerTwo.shift();
-        this.playerTwoCardValue = card;
+        this.playerTwoCardValue = card.Value;
       }
       this.currentCards.push(card, cardTwo);
     }
     return card;
+  }
+  showResult() {
+    // console.log({playerOne:{cardsLeft:playerOnescards}; })
+  }
+  compare() {
+    if (this.playerOneCardValue === this.playerTwoCardValue) {
+      this.getOneOrTwoCard("playerOne", 2);
+      this.getOneOrTwoCard("playerTwo", 2);
+    } else {
+      if (this.playerOneCardValue > this.playerTwoCardValue) {
+        this.playerOne.push(...this.currentCards);
+        this.winner = "playerOne";
+      } else {
+        this.playerTwo.push(...this.currentCards);
+        this.winner = "playerTwo";
+      }
+      this.playerTwoCardValue = 0;
+      this.playerOneCardValue = 0;
+      this.getOneOrTwoCard("playerOne", 1);
+      this.getOneOrTwoCard("playerTwo", 1);
+      this.currentCards = [];
+    }
   }
 }
