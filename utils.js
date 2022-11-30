@@ -8,7 +8,8 @@
 //  if someone wins, add current cards to winner's stack, print the imformation, and get one card from each stack again
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
-
+import { War } from "./class.js";
+const war = new War();
 export const deckOrigin = () => {
   const A = 14;
   const J = 11;
@@ -25,22 +26,8 @@ export const deckOrigin = () => {
   );
   return deckOrigin;
 };
-const shuffle = () => {
-  const deck = deckOrigin();
-  let currentIndex = deck.length;
-  let randomIndex = 0;
-  while (currentIndex != 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [deck[currentIndex], deck[randomIndex]] = [
-      deck[randomIndex],
-      deck[currentIndex],
-    ];
-  }
-  return deck;
-};
 export const split = () => {
-  const deck = shuffle();
+  const deck = war.shuffle(deckOrigin());
   const half = Math.floor(deck.length / 2);
   return [deck.slice(0, half), deck.slice(half)];
 };
