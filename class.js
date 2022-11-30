@@ -64,27 +64,48 @@ export class War {
       },
 
       { winner: this.winner },
+      { cardsOnTable: this.currentCards.length },
     ]);
   }
   compare() {
+    if (
+      !this.playerOne.length &&
+      this.playerOneCardValue < this.playerTwoCardValue
+    ) {
+      this.winner = "playerTwo";
+      this.playerTwo.push(...this.currentCards);
+      this.showResult();
+      return;
+    }
+    if (
+      !this.playerTwo.length &&
+      this.playerTwoCardValue < this.playerOneCardValue
+    ) {
+      this.winner = "playerOne";
+      this.playerOne.push(...this.currentCards);
+      this.showResult();
+      return;
+    }
     if (this.playerOneCardValue === this.playerTwoCardValue) {
+      this.winner = "war";
       this.showResult();
       this.getOneOrTwoCard("playerOne", 2);
       this.getOneOrTwoCard("playerTwo", 2);
     } else {
       if (this.playerOneCardValue > this.playerTwoCardValue) {
-        this.playerOne.push(...this.currentCards);
         this.winner = "playerOne";
+        this.showResult();
+        this.playerOne.push(...this.currentCards);
       } else {
-        this.playerTwo.push(...this.currentCards);
         this.winner = "playerTwo";
+        this.showResult();
+        this.playerTwo.push(...this.currentCards);
       }
-      this.showResult();
       this.playerTwoCardValue = 0;
       this.playerOneCardValue = 0;
+      this.currentCards = [];
       this.getOneOrTwoCard("playerOne", 1);
       this.getOneOrTwoCard("playerTwo", 1);
-      this.currentCards = [];
     }
   }
 }

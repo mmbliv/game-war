@@ -9,7 +9,7 @@
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
 
-const deckOrigin = () => {
+export const deckOrigin = () => {
   const A = 14;
   const J = 11;
   const Q = 12;
@@ -42,5 +42,5 @@ const shuffle = () => {
 export const split = () => {
   const deck = shuffle();
   const half = Math.floor(deck.length / 2);
-  return [deck.slice(0, half), deck.slice(-half)];
+  return [deck.slice(0, half), deck.slice(half)];
 };
