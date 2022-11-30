@@ -15,7 +15,7 @@ export class War {
     this.playerTwo = playerTwo;
     this.playerOneCardValue = 0;
     this.playerTwoCardValue = 0;
-    this.winner = null;
+    this.winner = "war";
     this.currentCards = [];
   }
   getOneOrTwoCard(player, cardCount) {
@@ -49,10 +49,26 @@ export class War {
     return card;
   }
   showResult() {
-    // console.log({playerOne:{cardsLeft:playerOnescards}; })
+    console.log([
+      {
+        playerOne: {
+          card: this.playerOneCardValue,
+          cardsLeft: this.playerOne.length,
+        },
+      },
+      {
+        playerTwo: {
+          card: this.playerTwoCardValue,
+          cardsLeft: this.playerTwo.length,
+        },
+      },
+
+      { winner: this.winner },
+    ]);
   }
   compare() {
     if (this.playerOneCardValue === this.playerTwoCardValue) {
+      this.showResult();
       this.getOneOrTwoCard("playerOne", 2);
       this.getOneOrTwoCard("playerTwo", 2);
     } else {
@@ -63,6 +79,7 @@ export class War {
         this.playerTwo.push(...this.currentCards);
         this.winner = "playerTwo";
       }
+      this.showResult();
       this.playerTwoCardValue = 0;
       this.playerOneCardValue = 0;
       this.getOneOrTwoCard("playerOne", 1);
