@@ -8,12 +8,49 @@ import { split } from "./utils.js";
 import { War } from "./class.js";
 const [playerOne, playerTwo] = split();
 const newGame = new War(playerOne, playerTwo);
-newGame.getOneOrTwoCard("playerOne", 1);
-newGame.getOneOrTwoCard("playerTwo", 1);
 while (newGame.playerOne.length < 52 && newGame.playerTwo.length < 52) {
-  newGame.compare();
+  if (newGame.playerOneCardValue !== newGame.playerTwoCardValue) {
+    if (newGame.playerOneCardValue > newGame.playerTwoCardValue) {
+      newGame.win("playerOne");
+    } else {
+      newGame.win("playerTwo");
+    }
+    newGame.emptyCurrent();
+    newGame.getOneOrTwoCard("playerOne", 1);
+    newGame.getOneOrTwoCard("playerTwo", 1);
+  } else if (
+    newGame.playerOneCardValue === newGame.playerTwoCardValue &&
+    (newGame.playerOneCardValue || newGame.playerTwoCardValue)
+  ) {
+    newGame.win("war");
+    newGame.getOneOrTwoCard("playerOne", 2);
+    newGame.getOneOrTwoCard("playerTwo", 2);
+  } else {
+    newGame.getOneOrTwoCard("playerOne", 1);
+    newGame.getOneOrTwoCard("playerTwo", 1);
+  }
+  if (
+    newGame.playerOne.length === 0 &&
+    newGame.playerOneCardValue <= newGame.playerTwoCardValue
+  ) {
+    newGame.win("playerTwo");
+    newGame.emptyCurrent();
+    // console.log(newGame.showResult());
+    console.log("The winner is playerTwo");
+    break;
+  }
+  if (
+    newGame.playerTwo.length === 0 &&
+    newGame.playerTwoCardValue <= newGame.playerOneCardValue
+  ) {
+    newGame.win("playerOne");
+    newGame.emptyCurrent();
+    console.log("The winner is playerOne");
+    break;
+  }
+
+  console.log(newGame.showResult());
 }
-newGame.showResult();
 
 // console.log(newGame.winner);
 // newGame.compare();

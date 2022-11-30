@@ -25,31 +25,45 @@ export class War {
     if (cardCount === 1) {
       if (player === "playerOne") {
         card = this.playerOne.shift();
-        this.playerOneCardValue = card.Value;
+        if (card) {
+          this.playerOneCardValue = card.Value;
+          this.currentCards.push(card);
+        }
       }
       if (player === "playerTwo") {
         card = this.playerTwo.shift();
-        this.playerTwoCardValue = card.Value;
+        if (card) {
+          this.playerTwoCardValue = card.Value;
+          this.currentCards.push(card);
+        }
       }
-      this.currentCards.push(card);
     }
     if (cardCount === 2) {
       if (player === "playerOne") {
         card = this.playerOne.shift();
         cardTwo = this.playerOne.shift();
-        this.playerOneCardValue = card.Value;
+        if (card) {
+          this.playerOneCardValue = card.Value;
+        }
       }
       if (player === "playerTwo") {
         card = this.playerTwo.shift();
         cardTwo = this.playerTwo.shift();
-        this.playerTwoCardValue = card.Value;
+        if (card) {
+          this.playerTwoCardValue = card.Value;
+        }
       }
-      this.currentCards.push(card, cardTwo);
+      if (card) {
+        this.currentCards.push(card);
+      }
+      if (cardTwo) {
+        this.currentCards.push(cardTwo);
+      }
     }
     return card;
   }
   showResult() {
-    console.log([
+    return [
       {
         playerOne: {
           card: this.playerOneCardValue,
@@ -65,7 +79,35 @@ export class War {
 
       { winner: this.winner },
       { cardsOnTable: this.currentCards.length },
-    ]);
+    ];
+  }
+  win(player) {
+    if (player === "playerOne" && this.currentCards.length) {
+      this.currentCards = this.shuffle(this.currentCards);
+      this.playerOne.push(...this.currentCards);
+    }
+    if (player === "playerTwo" && this.currentCards.length) {
+      this.currentCards = this.shuffle(this.currentCards);
+      this.playerTwo.push(...this.currentCards);
+    }
+    this.winner = player;
+  }
+  emptyCurrent() {
+    this.currentCards = [];
+  }
+  shuffle(cards) {
+    const deck = [...cards];
+    let currentIndex = deck.length;
+    let randomIndex = 0;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex],
+        deck[currentIndex],
+      ];
+    }
+    return deck;
   }
   compare() {
     if (
