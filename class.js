@@ -109,45 +109,51 @@ export class War {
     }
     return deck;
   }
-  compare() {
-    if (
-      !this.playerOne.length &&
-      this.playerOneCardValue < this.playerTwoCardValue
-    ) {
-      this.winner = "playerTwo";
-      this.playerTwo.push(...this.currentCards);
-      this.showResult();
-      return;
-    }
-    if (
-      !this.playerTwo.length &&
-      this.playerTwoCardValue < this.playerOneCardValue
-    ) {
-      this.winner = "playerOne";
-      this.playerOne.push(...this.currentCards);
-      this.showResult();
-      return;
-    }
-    if (this.playerOneCardValue === this.playerTwoCardValue) {
-      this.winner = "war";
-      this.showResult();
-      this.getOneOrTwoCard("playerOne", 2);
-      this.getOneOrTwoCard("playerTwo", 2);
-    } else {
-      if (this.playerOneCardValue > this.playerTwoCardValue) {
-        this.winner = "playerOne";
-        this.showResult();
-        this.playerOne.push(...this.currentCards);
-      } else {
-        this.winner = "playerTwo";
-        this.showResult();
-        this.playerTwo.push(...this.currentCards);
+}
+
+class Card {
+  constructor(value, suit) {
+    this.value = value;
+    this.suit = suit;
+  }
+}
+class Deck {
+  constructor() {
+    this.suits = ["diamonds", "hearts", "spades", "clubs"];
+    this.deck = [];
+    this.shuffledDeck = [];
+  }
+  deckOriginal() {
+    for (let i = 2; i <= 14; i++) {
+      for (let j = 0; j <= 3; j++) {
+        const card = new Card(i, this.suits[j]);
+        this.deck.push(card);
       }
-      this.playerTwoCardValue = 0;
-      this.playerOneCardValue = 0;
-      this.currentCards = [];
-      this.getOneOrTwoCard("playerOne", 1);
-      this.getOneOrTwoCard("playerTwo", 1);
+    }
+    return this;
+  }
+  shuffle(cards = this.deck) {
+    const deck = [...cards];
+    let currentIndex = deck.length;
+    let randomIndex = 0;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex],
+        deck[currentIndex],
+      ];
+    }
+    this.shuffledDeck = deck;
+    return this;
+  }
+  split(cards = this.shuffledDeck, stacks = 2) {
+    if (cards.length % stacks !== 0) {
+      return "cannot be splitted evenly";
     }
   }
 }
+const deck = new Deck();
+deck.deckOriginal();
+console.log(deck.deck);
+console.log(deck.shuffle());
