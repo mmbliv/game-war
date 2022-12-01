@@ -8,7 +8,49 @@
 //  if someone wins, add current cards to winner's stack, print the imformation, and get one card from each stack again
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
-
+class player {
+  constructor(name, stack) {
+    this.name = name;
+    this.stack = stack;
+    this.cardValue = null;
+  }
+}
+class Wa {
+  constructor(players) {
+    this.players = players;
+    this.winner = "war";
+    this.currentCards = [];
+  }
+  getOneOrTwoCard(cardCount) {
+    this.players.forEach((player) => {
+      let cardOne = null;
+      let cardTwo = null;
+      let cardThree = null;
+      if (cardCount === 1) {
+        cardOne = player.stack.shift();
+        if (cardOne) {
+          this.currentCards.push(cardOne);
+        }
+        player.cardValue = cardOne.value;
+      }
+      if (cardCount === 3) {
+        cardOne = player.stack.shift();
+        cardTwo = player.stack.shift();
+        cardThree = player.stack.shift();
+        if (cardOne) {
+          this.currentCards.push(cardOne);
+        }
+        if (cardTwo) {
+          this.currentCards.push(cardTwo);
+        }
+        if (cardThree) {
+          this.currentCards.push(cardThree);
+        }
+        player.cardValue = cardOne.value;
+      }
+    });
+  }
+}
 export class War {
   constructor(playerOne, playerTwo) {
     this.playerOne = playerOne;
@@ -151,9 +193,21 @@ class Deck {
     if (cards.length % stacks !== 0) {
       return "cannot be splitted evenly";
     }
+    const cardsAmountForEachStack = cards.length / stacks;
+    const splittedCards = [];
+    for (let i = 0; i < cards.length; i += cardsAmountForEachStack) {
+      let cardsInEachStack = [];
+      console.log(i, cardsAmountForEachStack);
+      if (i + cardsAmountForEachStack > cards.length) {
+        cardsInEachStack = cards.slice(i);
+      } else {
+        cardsInEachStack = cards.slice(i, i + cardsAmountForEachStack);
+      }
+      splittedCards.push(cardsInEachStack);
+    }
+    return splittedCards;
   }
 }
 const deck = new Deck();
-deck.deckOriginal();
-console.log(deck.deck);
-console.log(deck.shuffle());
+const a = deck.deckOriginal().shuffle().split(undefined, 26);
+console.log(a);
