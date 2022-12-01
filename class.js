@@ -7,18 +7,75 @@
 // 5. we need a method to compare those two numbers
 //  if someone wins, add current cards to winner's stack, print the imformation, and get one card from each stack again
 //  if there is a war, get two cards from each stack
-// 6. else end the game and print the winner
-class player {
+class Card {
+  constructor(value, suit) {
+    this.value = value;
+    this.suit = suit;
+  }
+}
+class Deck {
+  constructor() {
+    this.suits = ["diamonds", "hearts", "spades", "clubs"];
+    this.deck = [];
+    this.shuffledDeck = [];
+  }
+  deckOriginal() {
+    for (let i = 2; i <= 14; i++) {
+      for (let j = 0; j <= 3; j++) {
+        const card = new Card(i, this.suits[j]);
+        this.deck.push(card);
+      }
+    }
+    return this;
+  }
+  shuffle(cards = this.deck) {
+    const deck = [...cards];
+    let currentIndex = deck.length;
+    let randomIndex = 0;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex],
+        deck[currentIndex],
+      ];
+    }
+    this.shuffledDeck = deck;
+    return this;
+  }
+  split(cards = this.shuffledDeck, stacks = 2) {
+    if (cards.length % stacks !== 0) {
+      return "cannot be splitted evenly";
+    }
+    const cardsAmountForEachStack = cards.length / stacks;
+    const splittedCards = [];
+    for (let i = 0; i < cards.length; i += cardsAmountForEachStack) {
+      let cardsInEachStack = [];
+      if (i + cardsAmountForEachStack > cards.length) {
+        cardsInEachStack = cards.slice(i);
+      } else {
+        cardsInEachStack = cards.slice(i, i + cardsAmountForEachStack);
+      }
+      splittedCards.push(cardsInEachStack);
+    }
+    return splittedCards;
+  }
+}
+const deck = new Deck();
+const a = deck.deckOriginal().shuffle().split();
+class Player {
   constructor(name, stack) {
     this.name = name;
     this.stack = stack;
     this.cardValue = null;
   }
 }
+const playerOne = new Player("A", a[0]);
+const playerTwo = new Player("B", a[1]);
 class Wa {
   constructor(players) {
     this.players = players;
-    this.winner = "war";
+    this.winner = [];
     this.currentCards = [];
   }
   getOneOrTwoCard(cardCount) {
@@ -50,7 +107,23 @@ class Wa {
       }
     });
   }
+  compare() {
+    this.winner[0] = this.players.reduce(
+      (winner, current) => {
+        if (current.value > winner[1]) {
+          winner[0] = current;
+        }
+        if (current.value === winner[1]) {
+          winner[0].push(current);
+        }
+      },
+      [[this.players[0]], 0]
+    );
+  }
 }
+const newgame = new Wa([playerOne, playerTwo]);
+newgame.getOneOrTwoCard(3);
+console.log(newgame.currentCards);
 export class War {
   constructor(playerOne, playerTwo) {
     this.playerOne = playerOne;
@@ -152,62 +225,3 @@ export class War {
     return deck;
   }
 }
-
-class Card {
-  constructor(value, suit) {
-    this.value = value;
-    this.suit = suit;
-  }
-}
-class Deck {
-  constructor() {
-    this.suits = ["diamonds", "hearts", "spades", "clubs"];
-    this.deck = [];
-    this.shuffledDeck = [];
-  }
-  deckOriginal() {
-    for (let i = 2; i <= 14; i++) {
-      for (let j = 0; j <= 3; j++) {
-        const card = new Card(i, this.suits[j]);
-        this.deck.push(card);
-      }
-    }
-    return this;
-  }
-  shuffle(cards = this.deck) {
-    const deck = [...cards];
-    let currentIndex = deck.length;
-    let randomIndex = 0;
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [deck[currentIndex], deck[randomIndex]] = [
-        deck[randomIndex],
-        deck[currentIndex],
-      ];
-    }
-    this.shuffledDeck = deck;
-    return this;
-  }
-  split(cards = this.shuffledDeck, stacks = 2) {
-    if (cards.length % stacks !== 0) {
-      return "cannot be splitted evenly";
-    }
-    const cardsAmountForEachStack = cards.length / stacks;
-    const splittedCards = [];
-    for (let i = 0; i < cards.length; i += cardsAmountForEachStack) {
-      let cardsInEachStack = [];
-      console.log(i, cardsAmountForEachStack);
-      if (i + cardsAmountForEachStack > cards.length) {
-        cardsInEachStack = cards.slice(i);
-      } else {
-        cardsInEachStack = cards.slice(i, i + cardsAmountForEachStack);
-      }
-      splittedCards.push(cardsInEachStack);
-    }
-    return splittedCards;
-  }
-}
-const deck = new Deck();
-const a = deck.deckOriginal().shuffle().split(undefined, 26);
-console.log(a);
