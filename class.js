@@ -13,7 +13,8 @@ class Card {
     this.suit = suit;
   }
 }
-class Deck {
+
+export class Deck {
   constructor() {
     this.suits = ["diamonds", "hearts", "spades", "clubs"];
     this.deck = [];
@@ -61,18 +62,15 @@ class Deck {
     return splittedCards;
   }
 }
-const deck = new Deck();
-const a = deck.deckOriginal().shuffle().split();
-class Player {
+
+export class Player {
   constructor(name, stack) {
     this.name = name;
     this.stack = stack;
     this.cardValue = null;
   }
 }
-const playerOne = new Player("A", a[0]);
-const playerTwo = new Player("B", a[1]);
-class Wa {
+export class Wa {
   constructor(players) {
     this.players = players;
     this.winner = [];
@@ -107,8 +105,8 @@ class Wa {
       }
     });
   }
-  compare() {
-    this.winner = this.players.reduce(
+  compare(players) {
+    this.winner = players.reduce(
       (winner, current) => {
         if (current.cardValue > winner[1]) {
           winner[0] = current;
@@ -117,8 +115,9 @@ class Wa {
           winner[0].push(current);
         }
       },
-      [[this.players[0]], 0]
+      [[players[0]], 0]
     )[0];
+    return this.winner;
   }
 
   emptyCurrent() {
@@ -144,9 +143,6 @@ class Wa {
     return deck;
   }
 }
-const newgame = new Wa([playerOne, playerTwo]);
-newgame.getOneOrTwoCard(3);
-console.log(newgame.currentCards);
 export class War {
   constructor(playerOne, playerTwo) {
     this.playerOne = playerOne;
