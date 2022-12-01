@@ -78,8 +78,8 @@ class Wa {
     this.winner = [];
     this.currentCards = [];
   }
-  getOneOrTwoCard(cardCount) {
-    this.players.forEach((player) => {
+  getOneOrTwoCard(players, cardCount) {
+    players.forEach((player) => {
       let cardOne = null;
       let cardTwo = null;
       let cardThree = null;
@@ -108,17 +108,40 @@ class Wa {
     });
   }
   compare() {
-    this.winner[0] = this.players.reduce(
+    this.winner = this.players.reduce(
       (winner, current) => {
-        if (current.value > winner[1]) {
+        if (current.cardValue > winner[1]) {
           winner[0] = current;
         }
-        if (current.value === winner[1]) {
+        if (current.cardValue === winner[1]) {
           winner[0].push(current);
         }
       },
       [[this.players[0]], 0]
-    );
+    )[0];
+  }
+
+  emptyCurrent() {
+    this.currentCards = [];
+  }
+
+  winnerIs(player) {
+    player.stack.push(this.shuffle(this.currentCards));
+  }
+
+  shuffle(cards = this.deck) {
+    const deck = [...cards];
+    let currentIndex = deck.length;
+    let randomIndex = 0;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex],
+        deck[currentIndex],
+      ];
+    }
+    return deck;
   }
 }
 const newgame = new Wa([playerOne, playerTwo]);
