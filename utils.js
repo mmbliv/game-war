@@ -8,26 +8,34 @@
 //  if someone wins, add current cards to winner's stack, print the imformation, and get one card from each stack again
 //  if there is a war, get two cards from each stack
 // 6. else end the game and print the winner
-import { War } from "./class.js";
-const war = new War();
-export const deckOrigin = () => {
-  const A = 14;
-  const J = 11;
-  const Q = 12;
-  const K = 13;
-  const cards = [A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K];
-  const suits = ["diamonds", "hearts", "spades", "clubs"];
-  const deckOrigin = cards.reduce(
-    (res, card) => [
-      ...res,
-      ...suits.map((suit) => ({ Value: card, Suit: suit })),
-    ],
-    []
-  );
-  return deckOrigin;
-};
-export const split = () => {
-  const deck = war.shuffle(deckOrigin());
-  const half = Math.floor(deck.length / 2);
-  return [deck.slice(0, half), deck.slice(half)];
-};
+// import { War } from "./class.js";
+// const war = new War();
+// export const deckOrigin = () => {
+//   const A = 14;
+//   const J = 11;
+//   const Q = 12;
+//   const K = 13;
+//   const cards = [A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K];
+//   const suits = ["diamonds", "hearts", "spades", "clubs"];
+//   const deckOrigin = cards.reduce(
+//     (res, card) => [
+//       ...res,
+//       ...suits.map((suit) => ({ Value: card, Suit: suit })),
+//     ],
+//     []
+//   );
+//   return deckOrigin;
+// };
+// export const split = () => {
+//   const deck = war.shuffle(deckOrigin());
+//   const half = Math.floor(deck.length / 2);
+//   return [deck.slice(0, half), deck.slice(half)];
+// };
+const arr = [1, 2, 3];
+arr.reduce(
+  (acc, curr) => {
+    console.log(acc);
+  },
+  [0, 0]
+);
+// console.log(a);

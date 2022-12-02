@@ -76,7 +76,7 @@ export class Wa {
     this.winner = [];
     this.currentCards = [];
   }
-  getOneOrTwoCard(players, cardCount) {
+  getOneOrTwoCard(players = this.players, cardCount) {
     players.forEach((player) => {
       let cardOne = null;
       let cardTwo = null;
@@ -105,19 +105,19 @@ export class Wa {
       }
     });
   }
-  compare(players) {
+  compare(players = this.players) {
     this.winner = players.reduce(
       (winner, current) => {
         if (current.cardValue > winner[1]) {
-          winner[0] = current;
+          return [current, current.cardValue];
         }
         if (current.cardValue === winner[1]) {
-          winner[0].push(current);
+          return [[...current], current.cardValue];
         }
       },
       [[players[0]], 0]
-    )[0];
-    return this.winner;
+    );
+    // this.winner = winner[0];
   }
 
   emptyCurrent() {
