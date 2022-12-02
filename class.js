@@ -70,7 +70,8 @@ export class Player {
     this.cardValue = 0;
   }
 }
-export class Wa {
+
+export class War {
   constructor(players) {
     this.players = players;
     this.winner = [];
@@ -165,106 +166,5 @@ export class Wa {
     } else {
       return false;
     }
-  }
-}
-export class War {
-  constructor(playerOne, playerTwo) {
-    this.playerOne = playerOne;
-    this.playerTwo = playerTwo;
-    this.playerOneCardValue = 0;
-    this.playerTwoCardValue = 0;
-    this.winner = "war";
-    this.currentCards = [];
-  }
-  getOneOrTwoCard(player, cardCount) {
-    let card = null;
-    let cardTwo = null;
-
-    if (cardCount === 1) {
-      if (player === "playerOne") {
-        card = this.playerOne.shift();
-        if (card) {
-          this.playerOneCardValue = card.Value;
-          this.currentCards.push(card);
-        }
-      }
-      if (player === "playerTwo") {
-        card = this.playerTwo.shift();
-        if (card) {
-          this.playerTwoCardValue = card.Value;
-          this.currentCards.push(card);
-        }
-      }
-    }
-    if (cardCount === 2) {
-      if (player === "playerOne") {
-        card = this.playerOne.shift();
-        cardTwo = this.playerOne.shift();
-        if (card) {
-          this.playerOneCardValue = card.Value;
-        }
-      }
-      if (player === "playerTwo") {
-        card = this.playerTwo.shift();
-        cardTwo = this.playerTwo.shift();
-        if (card) {
-          this.playerTwoCardValue = card.Value;
-        }
-      }
-      if (card) {
-        this.currentCards.push(card);
-      }
-      if (cardTwo) {
-        this.currentCards.push(cardTwo);
-      }
-    }
-    return card;
-  }
-  showResult() {
-    return [
-      {
-        playerOne: {
-          card: this.playerOneCardValue,
-          cardsLeft: this.playerOne.length,
-        },
-      },
-      {
-        playerTwo: {
-          card: this.playerTwoCardValue,
-          cardsLeft: this.playerTwo.length,
-        },
-      },
-
-      { winner: this.winner },
-      { cardsOnTable: this.currentCards.length },
-    ];
-  }
-  win(player) {
-    if (player === "playerOne" && this.currentCards.length) {
-      this.currentCards = this.shuffle(this.currentCards);
-      this.playerOne.push(...this.currentCards);
-    }
-    if (player === "playerTwo" && this.currentCards.length) {
-      this.currentCards = this.shuffle(this.currentCards);
-      this.playerTwo.push(...this.currentCards);
-    }
-    this.winner = player;
-  }
-  emptyCurrent() {
-    this.currentCards = [];
-  }
-  shuffle(cards) {
-    const deck = [...cards];
-    let currentIndex = deck.length;
-    let randomIndex = 0;
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [deck[currentIndex], deck[randomIndex]] = [
-        deck[randomIndex],
-        deck[currentIndex],
-      ];
-    }
-    return deck;
   }
 }
