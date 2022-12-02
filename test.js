@@ -16,7 +16,7 @@ const generatePlayers = function (players) {
   }
   return generatedPlayers;
 };
-const game = new Wa(generatePlayers("A", "B"));
-game.getOneOrTwoCard(undefined, 3);
-console.log(game.compare());
+const game = new Wa(generatePlayers("A", "B", "D", "C"));
+game.getOneOrTwoCard(undefined, 1);
 console.log(game);
+game.compare();

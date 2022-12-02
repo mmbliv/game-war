@@ -109,15 +109,18 @@ export class Wa {
     this.winner = players.reduce(
       (winner, current) => {
         if (current.cardValue > winner[1]) {
-          return [current, current.cardValue];
+          return [[current], current.cardValue];
         }
         if (current.cardValue === winner[1]) {
-          return [[...current], current.cardValue];
+          return [[...winner[0], current], current.cardValue];
+        }
+        if (current.cardValue < winner[1]) {
+          return [...winner];
         }
       },
       [[players[0]], 0]
-    );
-    // this.winner = winner[0];
+    )[0];
+    return this.winner;
   }
 
   emptyCurrent() {
