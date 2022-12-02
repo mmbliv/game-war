@@ -38,4 +38,5 @@ arr.reduce(
   },
   [0, 0]
 );
+console.log(Boolean(false > 9));
 // console.log(a);

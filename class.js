@@ -52,7 +52,7 @@ export class Deck {
     const splittedCards = [];
     for (let i = 0; i < cards.length; i += cardsAmountForEachStack) {
       let cardsInEachStack = [];
-      if (i + cardsAmountForEachStack > cards.length) {
+      if (i + cardsAmountForEachStack >= cards.length) {
         cardsInEachStack = cards.slice(i);
       } else {
         cardsInEachStack = cards.slice(i, i + cardsAmountForEachStack);
@@ -67,7 +67,7 @@ export class Player {
   constructor(name, stack) {
     this.name = name;
     this.stack = stack;
-    this.cardValue = null;
+    this.cardValue = 0;
   }
 }
 export class Wa {
@@ -85,8 +85,10 @@ export class Wa {
         cardOne = player.stack.shift();
         if (cardOne) {
           this.currentCards.push(cardOne);
+          player.cardValue = cardOne.value;
+        } else {
+          player.cardValue = null;
         }
-        player.cardValue = cardOne.value;
       }
       if (cardCount === 3) {
         cardOne = player.stack.shift();
@@ -94,6 +96,9 @@ export class Wa {
         cardThree = player.stack.shift();
         if (cardOne) {
           this.currentCards.push(cardOne);
+          player.cardValue = cardOne.value;
+        } else {
+          player.cardValue = null;
         }
         if (cardTwo) {
           this.currentCards.push(cardTwo);
@@ -101,7 +106,6 @@ export class Wa {
         if (cardThree) {
           this.currentCards.push(cardThree);
         }
-        player.cardValue = cardOne.value;
       }
     });
   }
@@ -114,11 +118,11 @@ export class Wa {
         if (current.cardValue === winner[1]) {
           return [[...winner[0], current], current.cardValue];
         }
-        if (current.cardValue < winner[1]) {
-          return [...winner];
+        if (current.cardValue < winner[1] || !current.cardValue) {
+          return winner;
         }
       },
-      [[players[0]], 0]
+      [[], 0]
     )[0];
     return this.winner;
   }
@@ -133,7 +137,7 @@ export class Wa {
   }
 
   winnerIs(player) {
-    player.stack.push(this.shuffle(this.currentCards));
+    player.stack.push(...this.shuffle(this.currentCards));
   }
 
   shuffle(cards = this.deck) {
@@ -152,11 +156,15 @@ export class Wa {
   }
   checkResult(players = this.players) {
     const winner = this.players.filter((player) => {
-      if (player.stack.length > 52) {
+      if (player.stack.length >= 51) {
         return player;
       }
     });
-    return winner;
+    if (winner.length) {
+      return winner;
+    } else {
+      return false;
+    }
   }
 }
 export class War {
