@@ -150,6 +150,14 @@ export class Wa {
     }
     return deck;
   }
+  checkResult(players = this.players) {
+    const winner = this.players.filter((player) => {
+      if (player.stack.length > 52) {
+        return player;
+      }
+    });
+    return winner;
+  }
 }
 export class War {
   constructor(playerOne, playerTwo) {
