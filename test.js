@@ -20,3 +20,5 @@ const game = new Wa(generatePlayers("A", "B", "D", "C"));
 game.getOneOrTwoCard(undefined, 1);
 console.log(game);
 game.compare();
+console.log(game);
+game.logResult();

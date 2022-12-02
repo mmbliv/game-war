@@ -122,7 +122,12 @@ export class Wa {
     )[0];
     return this.winner;
   }
-
+  logResult(players = this.winner) {
+    const winner = players.map((player) => {
+      return { ...player, stack: player.stack.length };
+    });
+    return winner;
+  }
   emptyCurrent() {
     this.currentCards = [];
   }
