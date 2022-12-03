@@ -46,7 +46,7 @@ export class Deck {
   }
   split(cards = this.shuffledDeck, stacks = 2) {
     if (cards.length % stacks !== 0) {
-      return "cannot be splitted evenly";
+      return "Cannot be splitted evenly, please make sure the number of players can be devided by 52 evenly";
     }
     const cardsAmountForEachStack = cards.length / stacks;
     const splittedCards = [];

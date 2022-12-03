@@ -8,6 +8,9 @@ export const generatePlayers = function (players) {
     .shuffle()
     .split(undefined, arguments.length);
   const generatedPlayers = [];
+  if (typeof splitedDeck === "string") {
+    return splitedDeck;
+  }
   for (let i = 0; i < arguments.length; i++) {
     const player = new Player(arguments[i], splitedDeck[i]);
     generatedPlayers.push(player);
