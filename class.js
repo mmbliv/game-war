@@ -110,7 +110,7 @@ export class War {
       }
     });
   }
-  compare(players = this.players) {
+  runAndCompare(players = this.players) {
     this.winner = players.reduce(
       (winner, current) => {
         if (current.cardValue > winner[1]) {
@@ -137,7 +137,7 @@ export class War {
     this.currentCards = [];
   }
 
-  winnerIs(player) {
+  addCardsToWinner(player) {
     player.stack.push(...this.shuffle(this.currentCards));
   }
 
@@ -155,8 +155,8 @@ export class War {
     }
     return deck;
   }
-  checkResult(players = this.players) {
-    const winner = this.players.filter((player) => {
+  isGameFinished(players = this.players) {
+    const winner = players.filter((player) => {
       if (player.stack.length >= 51) {
         return player;
       }
