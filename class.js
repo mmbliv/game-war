@@ -157,7 +157,7 @@ export class War {
   }
   isGameFinished(players = this.players) {
     const winner = players.filter((player) => {
-      if (player.stack.length >= 51) {
+      if (player.stack.length >= 52) {
         return player;
       }
     });

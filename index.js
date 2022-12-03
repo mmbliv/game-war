@@ -7,21 +7,22 @@ const game = new War(generatePlayers("A", "B", "C", "D"));
 
 let finished = game.isGameFinished();
 // isGameFinished method is used to check if anyone has got 52 cards.
-// isGameFinished will by defalut take all player as an array as input.
+// isGameFinished will be by defalut taking all player as an array as input.
 //  If there is one who has got 52 cards, this method will return the winner. If there is no, this method will return false.
 while (!finished) {
   // If there is no one getting 52 cards, we continue the game
   if (!game.currentCards.length) {
     // currentCards property contains the cards that players have given out but have not given to the winner
-    // for the first round, currentCards is an empty array, in this scenario, we will use getOneOrTwoCard method to give each player one card to play
+    // for the first round, currentCards is an empty array, in this scenario, we will use getOneOrTwoCard method to get one card from each player to play
     game.getOneOrTwoCard(undefined, 1);
-    // the getOneOrTwoCard method will take two arguments, the first one is an array which has a default value of all the players, and the second is how many cards you want to have from each player, you you shoose 1 or 3;
+    // the getOneOrTwoCard method will take two arguments, the first one is an array which has a default value of all the players, and the second is how many cards you want to have from each player, you you choose 1 or 3;
     // this method  will cards from each player's stack property and put them into currentCards
     // also it will assign the card value to each player's cardValue property.
   } else {
     let winner = game.runAndCompare();
     // runAndCompare method will take an array of players as the argument, and the default input is all of the players
-    // runAndCompare method will compare each player's cardValue, and put the players who has the biggest cardValue into game's property winner as an array.
+    // this method will compare each player's cardValue, and put the players who has the biggest cardValue into game's property winner as an array.
+    // and will also return those winners as an array.
 
     while (winner.length > 1 && !finished) {
       // if we have more than one players who have the biggest cardValue, which means there is a war
@@ -36,16 +37,19 @@ while (!finished) {
     }
 
     game.addCardsToWinner(winner[0]);
-    // when we finailly get the winner of each round
+    // when we finally get the winner of each round
     // we use addCardsToWinner method to put currentsCards into this winner's stack property.
     // this method will take a player as an argument
     console.log(game.logResult());
+    // logResult will return the result of this round
 
     game.emptyCurrent();
+    // emptyCurrent method will empty the currentCards property, in this way, we can start next round
+    finished = game.isGameFinished();
+    // before start the next round of game, we should firstly check if we have someone got 52 cards already.
     game.getOneOrTwoCard(undefined, 1);
+    // we use getOneOrTwoCard to start the next round
   }
-
-  finished = game.isGameFinished();
 }
 
 console.log(`WINNER:${game.logResult()[0].name}`);
