@@ -7,15 +7,15 @@ const game = new War(generatePlayers("A", "B", "C", "D"));
 
 let finished = game.isGameFinished();
 // isGameFinished method is used to check if anyone has got 52 cards.
-// isGameFinished will be by defalut taking all player as an array as input.
+// isGameFinished will by defalut take all player as an array as input.
 //  If there is one who has got 52 cards, this method will return the winner. If there is no, this method will return false.
 while (!finished) {
   // If there is no one getting 52 cards, we continue the game
   if (!game.currentCards.length) {
     // currentCards property contains the cards that players have given out but have not given to the winner
-    // for the first round, currentCards is an empty array, in this scenario, we will use getOneOrTwoCard method to get one card from each player to play
+    // for the first round, currentCards is an empty array, in this scenario, we will use getOneOrTwoCard method to give each player one card to play
     game.getOneOrTwoCard(undefined, 1);
-    // the getOneOrTwoCard method will take two arguments, the first one is an array which has a default value of all the players, and the second is how many cards you want to have from each player, you you choose 1 or 3;
+    // the getOneOrTwoCard method will take two arguments, the first one is an array which has a default value of all the players, and the second is how many cards you want to have from each player, you you shoose 1 or 3;
     // this method  will cards from each player's stack property and put them into currentCards
     // also it will assign the card value to each player's cardValue property.
   } else {
@@ -26,8 +26,8 @@ while (!finished) {
 
     while (winner.length > 1 && !finished) {
       // if we have more than one players who have the biggest cardValue, which means there is a war
-      //  we will let those people to play this game until we only have one player who has the biggest cardValue
-      // at the same time we need to check if someone has got 52 cards. If there is one, we need to end this game.
+      //  we will let those players to play this game until we only have one player who has the biggest cardValue
+      // at the same time we need to check if someone has got 52 cards. If there is one, we need to get out of this loop also.
       game.getOneOrTwoCard(winner, 3);
       // we use getOneOrTwoCard method again to get three cards from each of those 'winners'.
       winner = game.runAndCompare(winner);
@@ -46,7 +46,7 @@ while (!finished) {
     game.emptyCurrent();
     // emptyCurrent method will empty the currentCards property, in this way, we can start next round
     finished = game.isGameFinished();
-    // before start the next round of game, we should firstly check if we have someone got 52 cards already.
+    // we need to use isGameFinished to update if we have someone got 52 cards before we start next round.
     game.getOneOrTwoCard(undefined, 1);
     // we use getOneOrTwoCard to start the next round
   }
