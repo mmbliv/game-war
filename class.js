@@ -131,11 +131,11 @@ export class War {
     )[0];
     return this.winner;
   }
-  logResult(players = this.winner) {
-    const winner = players.map((player) => {
+  logResult(players = this.players) {
+    const result = players.map((player) => {
       return { ...player, stack: player.stack.length };
     });
-    return winner;
+    return result;
   }
   emptyCurrent() {
     this.currentCards = [];
