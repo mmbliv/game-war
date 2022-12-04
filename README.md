@@ -1,6 +1,6 @@
 # GAME-WAR
 ## About The Game
- The goal is to be the first player to win all 52 cards.
+This is a poker game, and there is no limit for the number of players. Who get all the cards will be the winner.
  ### The  Deal
  - The deck is divided evenly, with each player receiving the same amount of cards.
 ### The Play
@@ -10,7 +10,7 @@
 ## Instructions
 - This game will run autamatically when you run the `index.js` file.
 - This game will generate four players by default who have name of "A", "B", "C" and "D" with the function `generatePlayers("A", "B", "C", "D")`
-- You can change how many players you want to have to play this game or their name by changing the input of `generatePlayers()` 
+- You can change how many players you want to have to play this game and their name by changing the input of `generatePlayers()` 
 - The result of each round will be logged out to the console.
 - When the game ends, the winner be be logged out to the console.
 
