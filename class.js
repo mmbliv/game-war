@@ -45,12 +45,16 @@ export class Deck {
     return this;
   }
   split(cards = this.shuffledDeck, stacks = 2) {
-    if (cards.length % stacks !== 0) {
-      return "Cannot be splitted evenly, please make sure the number of players can be devided by 52 evenly";
-    }
-    const cardsAmountForEachStack = cards.length / stacks;
+    // if (cards.length % stacks !== 0) {
+    //   return "Cannot be splitted evenly, please make sure the number of players can be devided by 52 evenly";
+    // }
+    const cardsAmountForEachStack = Math.floor(cards.length / stacks);
     const splittedCards = [];
-    for (let i = 0; i < cards.length; i += cardsAmountForEachStack) {
+    for (
+      let i = 0;
+      i < cardsAmountForEachStack * stacks;
+      i += cardsAmountForEachStack
+    ) {
       let cardsInEachStack = [];
       if (i + cardsAmountForEachStack >= cards.length) {
         cardsInEachStack = cards.slice(i);
