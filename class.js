@@ -160,8 +160,10 @@ export class War {
     return deck;
   }
   isGameFinished(players = this.players) {
+    const totalCards =
+      Math.floor(52 / this.players.length) * this.players.length;
     const winner = players.filter((player) => {
-      if (player.stack.length >= 52) {
+      if (player.stack.length >= totalCards) {
         return player;
       }
     });
