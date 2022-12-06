@@ -163,9 +163,7 @@ export class War {
     const totalCards =
       Math.floor(52 / this.players.length) * this.players.length;
     const winner = players.filter((player) => {
-      if (player.stack.length >= totalCards) {
-        return player;
-      }
+      return player.stack.length >= totalCards;
     });
     if (winner.length) {
       return winner;
