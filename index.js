@@ -25,7 +25,7 @@ while (!finished) {
     // this method will compare each player's cardValue, and put the players who have the biggest cardValue into game's property winner as an array.
     // and will also return those winners as an array.
 
-    while (winner.length > 1 && !finished) {
+    while (winner.length > 1) {
       // if we have more than one players who have the biggest cardValue, which means there is a war
       //  we will let those players to play this game until we only have one player who has the biggest cardValue
       // at the same time we need to check if someone has got all cards. If there is one, we need to get out of this loop.
@@ -33,8 +33,6 @@ while (!finished) {
       // we use getOneOrTwoCard method again to get three cards from each of those 'winners'.
       winner = game.runAndCompare(winner);
       // we use runAndCompare method again to compare cardValue of those 'winners'
-      finished = game.isGameFinished();
-      // isGameFinished will be used to update 'finished' status in each round of game.
     }
 
     game.addCardsToWinner(winner[0]);
