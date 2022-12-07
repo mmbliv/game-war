@@ -145,7 +145,7 @@ export class War {
     player.stack.push(...this.shuffle(this.currentCards));
   }
 
-  shuffle(cards = this.deck) {
+  shuffle(cards) {
     const deck = [...cards];
     let currentIndex = deck.length;
     let randomIndex = 0;
