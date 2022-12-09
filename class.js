@@ -81,37 +81,51 @@ export class War {
     this.winner = [];
     this.currentCards = [];
   }
-  getOneOrTwoCard(players = this.players, cardCount) {
+  getCardsFromPlayers(players = this.players, cardCount) {
     players.forEach((player) => {
-      let cardOne = null;
-      let cardTwo = null;
-      let cardThree = null;
-      if (cardCount === 1) {
-        cardOne = player.stack.shift();
-        if (cardOne) {
-          this.currentCards.push(cardOne);
-          player.cardValue = cardOne.value;
-        } else {
-          player.cardValue = null;
-        }
+      if (player.stack.length === 0) {
+        player.cardValue = 0;
+        return;
       }
-      if (cardCount === 3) {
-        cardOne = player.stack.shift();
-        cardTwo = player.stack.shift();
-        cardThree = player.stack.shift();
-        if (cardOne) {
-          this.currentCards.push(cardOne);
-          player.cardValue = cardOne.value;
-        } else {
-          player.cardValue = null;
-        }
-        if (cardTwo) {
-          this.currentCards.push(cardTwo);
-        }
-        if (cardThree) {
-          this.currentCards.push(cardThree);
-        }
+      if (player.stack.length <= cardCount) {
+        player.cardValue = player.stack[0].value;
+        this.currentCards = this.currentCards.concat(player.stack);
+        player.stack = [];
       }
+      if (player.stack.length > cardCount) {
+        player.cardValue = player.stack[0].value;
+        const removedCards = player.stack.splice(0, cardCount);
+        this.currentCards = this.currentCards.concat(removedCards);
+      }
+      // let cardOne = null;
+      // let cardTwo = null;
+      // let cardThree = null;
+      // if (cardCount === 1) {
+      //   cardOne = player.stack.shift();
+      //   if (cardOne) {
+      //     this.currentCards.push(cardOne);
+      //     player.cardValue = cardOne.value;
+      //   } else {
+      //     player.cardValue = null;
+      //   }
+      // }
+      // if (cardCount === 3) {
+      //   cardOne = player.stack.shift();
+      //   cardTwo = player.stack.shift();
+      //   cardThree = player.stack.shift();
+      //   if (cardOne) {
+      //     this.currentCards.push(cardOne);
+      //     player.cardValue = cardOne.value;
+      //   } else {
+      //     player.cardValue = null;
+      //   }
+      //   if (cardTwo) {
+      //     this.currentCards.push(cardTwo);
+      //   }
+      //   if (cardThree) {
+      //     this.currentCards.push(cardThree);
+      //   }
+      // }
     });
   }
   runAndCompare(players = this.players) {
