@@ -1,20 +1,20 @@
 import { War } from "./class.js";
 import { generatePlayers } from "./utils.js";
-const players = generatePlayers("A", "B", "C", "D", "F");
-
-const game = new War(players);
+const players = generatePlayers("A", "B");
 // generatePlayers is a function which will generate an array of players;
 // It will take players' name as input.
 
+const game = new War(players);
+// we use class War to initialize our game
 let finished = game.isGameFinished();
 // isGameFinished method is used to check if anyone has got all cards.
 // isGameFinished will by defalut take all player as an array as input.
 //  If there is one who has got all cards, this method will return the winner. If there is no, this method will return false.
 while (!finished) {
   // If there is no one getting all cards, we continue the game
-  if (!game.currentCards.length) {
-    // currentCards property contains the cards that players have given out but have not given to the winner
-    // for the first round, currentCards is an empty array, in this scenario, we will use getOneOrTwoCard method to give each player one card to play
+  if (!game.getCurrentCardsOnTable().length) {
+    // getCurrentCardsOnTable() will return the current cards on table
+    // for the first round, currentCards is an empty array, in this scenario, we will use getCardsFromPlayers method to get one card from each player to play
     game.getCardsFromPlayers(undefined, 1);
     // the getOneOrTwoCard method will get cards from each player's stack property and put them into currentCards
     // the getOneOrTwoCard method will take two arguments, the first one is an array which has a default value of all the players, and the second is how many cards you want to get from each player;

@@ -16,18 +16,15 @@ class Card {
 
 export class Deck {
   constructor() {
-    this.suits = ["diamonds", "hearts", "spades", "clubs"];
     this.deck = [];
     this.shuffledDeck = [];
-  }
-  deckOriginal() {
+    const suits = ["diamonds", "hearts", "spades", "clubs"];
     for (let i = 2; i <= 14; i++) {
       for (let j = 0; j <= 3; j++) {
-        const card = new Card(i, this.suits[j]);
+        const card = new Card(i, suits[j]);
         this.deck.push(card);
       }
     }
-    return this;
   }
   shuffle(cards = this.deck) {
     const deck = [...cards];
@@ -97,36 +94,10 @@ export class War {
         const removedCards = player.stack.splice(0, cardCount);
         this.currentCards = this.currentCards.concat(removedCards);
       }
-      // let cardOne = null;
-      // let cardTwo = null;
-      // let cardThree = null;
-      // if (cardCount === 1) {
-      //   cardOne = player.stack.shift();
-      //   if (cardOne) {
-      //     this.currentCards.push(cardOne);
-      //     player.cardValue = cardOne.value;
-      //   } else {
-      //     player.cardValue = null;
-      //   }
-      // }
-      // if (cardCount === 3) {
-      //   cardOne = player.stack.shift();
-      //   cardTwo = player.stack.shift();
-      //   cardThree = player.stack.shift();
-      //   if (cardOne) {
-      //     this.currentCards.push(cardOne);
-      //     player.cardValue = cardOne.value;
-      //   } else {
-      //     player.cardValue = null;
-      //   }
-      //   if (cardTwo) {
-      //     this.currentCards.push(cardTwo);
-      //   }
-      //   if (cardThree) {
-      //     this.currentCards.push(cardThree);
-      //   }
-      // }
     });
+  }
+  getCurrentCardsOnTable() {
+    return this.currentCards;
   }
   runAndCompare(players = this.players) {
     this.winner = players.reduce(
