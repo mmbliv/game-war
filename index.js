@@ -8,7 +8,7 @@ const game = new War(players);
 // we use class War to initialize our game
 let finished = game.isGameFinished();
 // isGameFinished method is used to check if anyone has got all cards.
-// isGameFinished will by defalut take all player as an array as input.
+// isGameFinished will by defalut take all players as an array as input.
 //  If there is one who has got all cards, this method will return the winner. If there is no, this method will return false.
 while (!finished) {
   // If there is no one getting all cards, we continue the game
@@ -28,7 +28,6 @@ while (!finished) {
     while (winner.length > 1) {
       // if we have more than one players who have the biggest cardValue, which means there is a war
       //  we will let those players to play this game until we only have one player who has the biggest cardValue
-      // at the same time we need to check if someone has got all cards. If there is one, we need to get out of this loop.
       game.getCardsFromPlayers(winner, 3);
       // we use getOneOrTwoCard method again to get three cards from each of those 'winners'.
       winner = game.runAndCompare(winner);

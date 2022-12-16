@@ -16,7 +16,7 @@
 ## Instructions
 
 - This game will run autamatically when you run the `index.js` file.
-- This game will generate four players by default who have name of "A", "B", "C" and "D" with the function `generatePlayers("A", "B", "C", "D")`
+- This game will generate four players by default who have name of "A", "B", "C" and "D" with the function `generatePlayers("A", "B")`
 - You can change how many players you want to have to play this game and their name by changing the input of `generatePlayers()`
 - By default, in each round, we will get one card from each player with method `game.getCardsFromPlayers(players, howManyCards)`
 - If there is a tie, we set the second argument of `game.getCardsFromPlayers(players, howManyCards)` to be three to get three cards from the winners of previous round.
